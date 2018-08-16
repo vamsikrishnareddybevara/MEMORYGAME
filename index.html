@@ -3,12 +3,21 @@
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
-    <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/80b73d72aa.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+    <section id='intro'>
+        <div class="intro">
+            <h1>MEMORY GAME</h1>
+            <p>lets have some fun with this game.I'll give you 10 seconds to remember the positions of the symbols.</p>
+            <p>You have to try to match them in 3 chances. Good luck mate!</p>
+            <button class='button'>Play</button>
+        </div>
+    </section>
 
     <div class="container">
         <header>
@@ -16,18 +25,18 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
 
-        	<span class="moves">3</span> Moves
-            <span class='timer'></span>
+            <span class="moves">3</span> Moves
+            <span class='timer'>10</span>
 
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+                <i class="fa fa-repeat"></i>
+            </div>
         </section>
 
         <ul class="deck">

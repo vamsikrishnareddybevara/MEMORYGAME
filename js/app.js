@@ -1,35 +1,49 @@
 /*
  * Create a list that holds all of your cards
  */
+ let intro , button;
+    intro = document.querySelector('#intro');
+    button = intro.querySelector('button');
+    button.addEventListener('click',startgame);
+    function startgame(event){
+        intro.remove();
+        setTimeout(cardsRemove,10000);
+            function cardsRemove(){
+                cards.forEach(function(card) {
+                card.className='card';
+                })
+        }
+    let time=10;
+    let count=0;
+    document.querySelector('.timer').innerHTML=time-count;
+    let interval=setInterval(setTime,1000); 
+    function setTime(){ 
+        count=count+1;
+        document.querySelector('.timer').innerHTML=time-count; 
+    }
+    setTimeout(stopInterval,10000);
+    function stopInterval(){
+    clearInterval(interval);
+    }
+      
+    setTimeout(removeTimer,10000);
+    function removeTimer(){
+    document.querySelector('.timer').innerHTML='Good Luck!';
+     }
+    
+}
+
+
+
  const cards = document.querySelectorAll('.card');
  cardsDisplay();
  function cardsDisplay(){
  cards.forEach(function(card) {
- 	card.className='card open show'
+    card.className='card open show'
  });
 }
-setTimeout(cardsRemove,5000);
-function cardsRemove(){
-	cards.forEach(function(card) {
-		card.className='card';
-	})
-}
-let time = 5;
-while(time>=0){
-	setTime();
-}
-function setTime(){
-document.querySelector('.timer').innerHTML=time;
-timer(time);
-}
 
 
-function timer(time) {
-
-	time-=1;
-	setTime(time);
-}
-setInterval(timer,1000);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -38,6 +52,9 @@ setInterval(timer,1000);
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+const restart = document.querySelector('.restart');
+restart.addEventListener('click',shuffle);
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
