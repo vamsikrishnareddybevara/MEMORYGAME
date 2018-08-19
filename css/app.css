@@ -28,12 +28,11 @@ body {
     text-align: center;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    width: 400px;
-    height:400px;
-    position: absolute;
     top: 25%;
-    left: 35%;
-    right: 50%;
+    left: 30%;
+    width: 40vw;
+    height:70vh;
+    position: absolute;
     z-index: 100;
     border-radius: 8px;
     -webkit-box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
