@@ -20,7 +20,7 @@ body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
-.intro{
+.intro {
     background-image: -webkit-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
     background-image: -o-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
     background-image: linear-gradient(to top left, #203048, #006085, #009599, #00c574, #a8eb12);    position: absolute;
@@ -38,7 +38,25 @@ body {
     -moz-box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
     box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
 }
-
+.success {
+    background-image: -webkit-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
+    background-image: -o-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
+    background-image: linear-gradient(to top left, #203048, #006085, #009599, #00c574, #a8eb12);    position: absolute;
+    padding: 50px;
+    text-align: center;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    top: 25%;
+    left: 30%;
+    width: 40vw;
+    height: 300px;
+    position: absolute;
+    z-index: 100;
+    border-radius: 8px;
+    -webkit-box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
+    -moz-box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
+    box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
+}
 
 .button {
     font-size: 15px;
@@ -145,7 +163,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 450px;
+    width: 600px;
     margin-bottom: 10px;
 }
 
@@ -166,3 +184,12 @@ h1 {
     float: right;
     cursor: pointer;
 }
+.fa.fa-repeat {
+    color: #42dcf4;
+    padding: 8px;
+    border: 2px solid #42dcf4;
+    border-radius: 5px;
+}
+.rating {
+    color: #42dcf4;
+} 

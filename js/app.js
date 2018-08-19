@@ -2,6 +2,9 @@
     restart.addEventListener('click',shuffle);
     let retry=false;
     let movesReset=false;
+    let matches = 0;
+     let intro , button;
+
 /* To display card when the file is loaded*/
     const cards = document.querySelectorAll('.card');
     cardsDisplay();
@@ -17,14 +20,14 @@
     let time=10;
     let count=0;
     document.querySelector('.timer').innerHTML=time-count;
-    let interval=setInterval(setTime,1000); 
+    let intervalOne=setInterval(setTime,1000); 
     function setTime(){ 
         count=count+1;
         document.querySelector('.timer').innerHTML=time-count; 
     }
     setTimeout(stopInterval,10000);
     function stopInterval(){
-    clearInterval(interval);
+    clearInterval(intervalOne);
     }     
     setTimeout(removeTimer,10000);
     function removeTimer(){
@@ -34,9 +37,10 @@
 
 
 /* Intro card to  give information about how to play the game */
-    intro();
-    function intro(){
-        let intro , button;
+
+
+    introDisplay();
+    function introDisplay(){   
         intro = document.querySelector('.intro');
         button = intro.querySelector('button');
         button.addEventListener('click',startgame);
@@ -59,12 +63,16 @@
 
 
 /* To show the restart icon after 10 seconds */
+
+
     function repeat(){
         document.querySelector('.restart').firstElementChild.className='fa fa-repeat';
     }
 
 
 /* To shuffle the cards after clicking restart */
+
+
     function shuffle(){
         var ul = document.querySelector('.deck');
         for (var i = ul.children.length; i >= 0; i--) {
@@ -75,16 +83,18 @@
     }
 
 /* To pop-up the intro card after clicking the restart icon */
+
+
     function recreateIntro(){
             let frag=document.createElement('div');       
             let heading = document.createElement('h1');
             heading.textContent='MEMORY GAME';
             frag.appendChild(heading);
             let para1 = document.createElement('p');
-            para1.textContent = 'lets have some fun with this game.I will give you 10 seconds to remember the positions of the symbols.';
+            para1.textContent = 'lets have some fun with this game.I will give you 10 seconds to remember the positions of the icons.';
             frag.appendChild(para1);
             let para2 = document.createElement('p');
-            para2.textContent='You have to try to match them in 3 chances. Good luck mate!';
+            para2.textContent='You have to try to match them. Good luck mate!';
             frag.appendChild(para2);
             let playButton = document.createElement('button');
             playButton.textContent='Play';
@@ -97,13 +107,14 @@
             cards.forEach(card => card.addEventListener('click',showCard));
             const star=document.querySelector('.stars');
             let listChild= star.getElementsByTagName('li');
-            for(let i=0;i<=2;i++){
+            for(let i=0;i<=4;i++){
                 listChild[i].firstElementChild.className='fa fa-star';
             }
             document.querySelector('.moves').innerHTML=0;
             movesReset=true;
-            intro();
+            introDisplay();
             retry=true;
+            successDiv.remove();
 }
 
 
@@ -132,6 +143,15 @@
         secondCard.className='card match';
         resetValues();            
         },1500);
+        if(firstCard.className == secondCard.className){
+            matches++;
+            console.log(matches);
+        }
+        if(matches===8){
+            matches=0;
+            noOfStars=0;
+            success();
+        }
         firstCard.removeEventListener('click',showCard);
         secondCard.removeEventListener('click',showCard);
         
@@ -143,42 +163,22 @@
         secondCard.className='card wrong';
         },500)
         setTimeout(function(){
-
         firstCard.className='card';
-        firstCard.className='card';
-        secondCard.className='card';
-        secondCard.className='card';
-        
-        starsCount();
+        secondCard.className='card';       
         resetValues();
  
         },1500);
  }
- let starCount=3,moves=3,lockBoard=false,i=2;
- function starsCount(){
-    if(starCount>=1){
-        if(retry){i=2;}  
-        let star = document.querySelector('.stars').getElementsByTagName('li');
-        star[i].firstElementChild.className='fa fa-star-o';
-        i--;
-        starCount--;
-        retry=false;
-    }
-    if(starCount===0){
-        document.querySelector('.timer').innerHTML='Game Over &#128541;';
-        cards.forEach(card => card.removeEventListener('click',showCard));
-        starCount=3;  
-    }
- }
+ let lockBoard=false;
+
  function numberOfMove(){
     if(movesReset===true){
         numberOfMoves=0;
-        console.log('hello');
     }
     numberOfMoves++
-    console.log(numberOfMoves);
     move.innerHTML = numberOfMoves;
     movesReset=false;
+
  }
 
 
@@ -214,10 +214,59 @@ function resetValues(){
     [hasflipped,lockBoard]=[false,false];
     [firstCard,secondCard]=[null,null];
 }
+
+
+function success(){
+    stars();
+    document.querySelector('.timer').innerHTML='Congratulations !';
+    successDiv = document.createElement('div');
+    successDiv.className='success';
+    document.querySelector('#success').appendChild(successDiv);
+    let para = document.createElement('p');
+    successDiv.appendChild(para);
+    para.textContent = ' Awesome ! You took '+numberOfMoves+' moves to complete the game with a rating of '+ noOfStars +' stars.';
+    let playButton = document.createElement('button');
+    playButton.textContent='Play';
+    playButton.className='button';
+
+}
+function stars(){
+    if(numberOfMoves<18){
+        limit = 4;
+        ratingCalculate();
+    }
+    else if(numberOfMoves<20){
+        limit=3;
+        ratingCalculate();
+    }
+    else if(numberOfMoves<24){
+        limit=2;
+        ratingCalculate();
+    }
+    else if(numberOfMoves<28){
+        limit=1;
+        ratingCalculate();
+    }
+    else if(numberOfMoves>28){
+        limit=0;
+        ratingCalculate();
+    }
+}
+function ratingCalculate(){
+        const star=document.querySelector('.stars');
+        listChild= star.getElementsByTagName('li');
+        for(let i=0;i<=limit;i++){
+            noOfStars++;
+            listChild[i].firstElementChild.className='fa fa-star rating';
+        }
+}
+
+
+
 cards.forEach(card => card.addEventListener('click',showCard));
 let hasFlipped = false;
 let firstCard,secondCard;
 let move=document.querySelector('.moves');
-let numberOfMoves = 0;
-
+let numberOfMoves = 0,matchedCards=0,noOfStars=0,limit=0;
+let successDiv='hello';
 
