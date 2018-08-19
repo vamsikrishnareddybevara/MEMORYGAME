@@ -28,7 +28,7 @@ body {
     text-align: center;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    top: 25%;
+    margin-top: 275px;
     left: 30%;
     width: 40vw;
     position: absolute;
@@ -46,7 +46,7 @@ body {
     text-align: center;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    top: 25%;
+    margin-top: 275px;
     left: 30%;
     width: 40vw;
     height: 300px;
