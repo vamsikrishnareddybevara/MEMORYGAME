@@ -51,9 +51,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
--webkit-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
--moz-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+    -webkit-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+    -moz-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+    box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
 }
 .button:hover {
     background-color: #ffffff;
@@ -118,6 +118,18 @@ h1 {
     background: #02b3e4;
     cursor: default;
 }
+.deck .card.correct {
+    background: #02b3e4;
+    font-size: 33px;
+    cursor: default;
+    border:8px solid #20d6b1;
+} 
+.deck .card.wrong {
+    background: #02b3e4;
+    font-size: 33px;
+    cursor: default;
+    border:8px solid #db0020;    
+}
 
 .deck .card.show {
     font-size: 33px;
@@ -135,7 +147,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 360px;
+    width: 450px;
     margin-bottom: 10px;
 }
 
