@@ -278,10 +278,10 @@ let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
 let successDiv,playAgain,again;
 
 
+    particlesJS();
 
 
-
-particlesJS("particles-js", 
+    particlesJS("particles-js", 
     {"particles":{"number":{"value":80,
     "density":{"enable":true,"value_area":800}},
     "color":{"value":"#f5bb00"},
