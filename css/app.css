@@ -9,7 +9,7 @@ html {
 }
 
 html,
-body{
+body {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -17,8 +17,10 @@ body{
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
 }
+
 .intro {
     background-image: -webkit-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
     background-image: -o-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
@@ -39,6 +41,7 @@ h1 {
     -moz-box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
     box-shadow: 6px 7px 46px -16px rgba(0,0,0,1);
 }
+
 .success {
     background-image: -webkit-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
     background-image: -o-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
@@ -95,14 +98,15 @@ header h1 {
  * Styles for the deck of cards
  */
 .timer {
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     color: #e00700;
     border: 1px solid #e00700;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    margin: 15px;
+    margin: 25px;
 }
 .deck {
     width: 660px;
@@ -165,7 +169,7 @@ header h1 {
 
 .score-panel {
     text-align: left;
-    width: 600px;
+    width: 700px;
     margin-bottom: 10px;
 }
 
@@ -179,7 +183,7 @@ header h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .score-panel .restart {
@@ -200,21 +204,18 @@ header h1 {
     color: #e00700;
 } 
 
-
 #moves {
     color: #e00700;
-    font-size: 20px;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
 }
+
 .moves {
+    padding-left: 20px;
     color: #e00700;
-    font-size: 20px;
+    font-size: 35px;
 }
 
-
-body{ 
-    margin:0; font:normal 75% Arial, Helvetica, sans-serif; 
-    } 
-canvas{ display: block; vertical-align: bottom; } 
 /* ---- particles.js container ---- */ 
 #particles-js{ 
     position:fixed; 

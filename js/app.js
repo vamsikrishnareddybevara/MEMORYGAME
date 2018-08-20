@@ -5,10 +5,19 @@
     let retry=false;
     let movesReset=false;
     let matches = 0;
-     let intro , button;
+    let intro , button;
+    let cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.addEventListener('click',showCard));
+    let hasFlipped,lockBoard = false;
+    let firstCard,secondCard;
+    let move=document.querySelector('.moves');
+    let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
+    let successDiv,playAgain,again;
 
-/* To display card when the file is loaded*/
-    const cards = document.querySelectorAll('.card');
+
+/* To display cards when the file is loaded*/
+
+    
     cardsDisplay();
 
     function cardsDisplay(){
@@ -17,7 +26,26 @@
         });
     }
 
+/* Intro card to  give information about how to play the game */
+
+    introDisplay();
+    function introDisplay(){   
+        intro = document.querySelector('.intro');
+        button = intro.querySelector('button');
+        button.addEventListener('click',startgame);
+       
+    }
+
+/* To remove the intro card when play button is clicked  card and to start the timer */
+
+    function startgame(event){
+        intro.remove();
+        timer();
+        setTimeout(cardsRemove,10000);
+    } 
+
 /* To start the timer when the play button is clicked and stop is after 10 seconds*/
+
     function timer(){
     let time=10;
     let count=0;
@@ -38,43 +66,23 @@
 }
 
 
-/* Intro card to  give information about how to play the game */
 
-
-    introDisplay();
-    function introDisplay(){   
-        intro = document.querySelector('.intro');
-        button = intro.querySelector('button');
-        button.addEventListener('click',startgame);
-       
-    }
-
-
-    function startgame(event){
-        intro.remove();
-        timer();
-        setTimeout(cardsRemove,10000);
-    } 
 /* To remove cards after 10 seconds */
 
-    function cardsRemove(){
+   function cardsRemove(){
         cards.forEach(function(card) {
         card.className='card';                
         })
         repeat();
     }
 
-
 /* To show the restart icon after 10 seconds */
-
 
     function repeat(){
         document.querySelector('.restart').firstElementChild.className='fa fa-repeat';
     }
 
-
 /* To shuffle the cards after clicking restart */
-
 
     function shuffle(){
         var ul = document.querySelector('.deck');
@@ -86,7 +94,6 @@
     }
 
 /* To pop-up the intro card after clicking the restart icon */
-
 
     function recreateIntro(){
             let introDiv=document.createElement('div');       
@@ -121,21 +128,10 @@
             successDiv.remove();
 }
 
+/* To disable cards when they are matched */
 
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
- function disableCards(){
+    function disableCards(){
+        numberOfMove();
         lockBoard=true;
         setTimeout(function(){
         firstCard.className='card correct'
@@ -146,21 +142,23 @@
         secondCard.className='card match';
         if(firstCard.className == secondCard.className){
             matches++;
-            console.log(matches);
         }
+        /* To check if all the cards are matched */
         if(matches===8){
             matches=0;
             noOfStars=0;
             success();
         }
-
         resetValues();            
         },1500);
         firstCard.removeEventListener('click',showCard);
-        secondCard.removeEventListener('click',showCard);
-        
- }
- function unShowCards(){
+        secondCard.removeEventListener('click',showCard);       
+    }
+
+ /* To unshow the cards if they are not matched */
+
+    function unShowCards(){
+        numberOfMove();
         lockBoard=true;
         setTimeout(function(){
         firstCard.className='card wrong';
@@ -172,8 +170,8 @@
         resetValues();
  
         },1500);
- }
- 
+    }
+ /* To calculate no of moves */
 
  function numberOfMove(){
     if(movesReset===true){
@@ -182,43 +180,43 @@
     numberOfMoves++
     move.innerHTML = numberOfMoves;
     movesReset=false;
-
  }
+/* To open and show a card when it is clicked */
 
-
-function showCard(){
-    numberOfMove();
-    if(lockBoard){return;}
-
-    this.classList.add('open');
-    this.classList.add('show');
-    if(!(hasFlipped)){
+    function showCard(){
+    
+        if(lockBoard){return;}
+            this.classList.add('open');
+            this.classList.add('show');
+        if(!(hasFlipped)){
         if(this === firstCard){return;}
-        // first click
-        hasFlipped=true;
-        firstCard=this;
-    }
-    else{
-    // second click
-
-    hasFlipped=false;
-    secondCard=this;
-        if(firstCard.dataset.icon===secondCard.dataset.icon) {
-        // its a match
-        disableCards();
+            // first click
+            hasFlipped=true;
+            firstCard=this;
         }
         else{
-        // not a match
-        unShowCards();
+            // second click
+            hasFlipped=false;
+            secondCard=this;
+            if(firstCard.dataset.icon===secondCard.dataset.icon) {
+            // its a match
+            disableCards();
+            }
+            else{
+            // not a match
+            unShowCards();
+            }
         }
     }
 
-} 
+/* To reset value after each move */ 
+
 function resetValues(){
     [hasflipped,lockBoard]=[false,false];
     [firstCard,secondCard]=[null,null];
 }
 
+/* To pop a card saying congrats when all the cards are matched */
 
 function success(){
     stars();
@@ -226,42 +224,37 @@ function success(){
     successDiv = document.createElement('div');
     successDiv.className='success';
     document.querySelector('#success').appendChild(successDiv);
+    let successHeading = document.createElement('h2');
+    successHeading.textContent='Awesome!'
+    successDiv.appendChild(successHeading);
     let para = document.createElement('p');
     successDiv.appendChild(para);
-    para.textContent = ' Awesome ! You took '+numberOfMoves+' moves to complete the game with a rating of '+ noOfStars +' stars.';
+    para.textContent = 'You took '+numberOfMoves+' moves to complete the game with a rating of '+ noOfStars +' stars.';
 }
 
+/* To give rating based on no of moves */
 
 function stars(){
-    if(numberOfMoves<=22){
+    if(numberOfMoves<=10){
         limit=4;
         ratingCalculate();
     }
-    else if(numberOfMoves<=26){
+    else if(numberOfMoves<=15){
         limit=3;
         ratingCalculate();
     }
-    else if(numberOfMoves<=30){
+    else if(numberOfMoves<=18){
         limit=2;
         ratingCalculate();
     }
-    else if(numberOfMoves<=32){
+    else if(numberOfMoves<=20){
         limit=1;
         ratingCalculate();
     }
-    else if(numberOfMoves>32){
+    else if(numberOfMoves>20){
         limit=0;
         ratingCalculate();
     }
-}
-
-function removeRating(){
-        const star=document.querySelector('.stars');
-        listChild= star.getElementsByTagName('li');
-        for(let i=0;i<=4;i++){
-            noOfStars++;
-            listChild[i].firstElementChild.className='fa fa-star-o';
-        }
 }
 function ratingCalculate(){
         const star=document.querySelector('.stars');
@@ -272,13 +265,18 @@ function ratingCalculate(){
         }
 }
 
+/* To reset rating when restart button is clicked */
 
-cards.forEach(card => card.addEventListener('click',showCard));
-let hasFlipped,lockBoard = false;
-let firstCard,secondCard;
-let move=document.querySelector('.moves');
-let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
-let successDiv,playAgain,again;
+function removeRating(){
+        const star=document.querySelector('.stars');
+        listChild= star.getElementsByTagName('li');
+        for(let i=0;i<=4;i++){
+            noOfStars++;
+            listChild[i].firstElementChild.className='fa fa-star-o';
+        }
+}
 
-particlesJS("particles-js", {"particles":{"number":{"value":144,"density":{"enable":true,"value_area":2244.776885211732}},"color":{"value":"#f70202"},"shape":{"type":"circle","stroke":{"width":2,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":true,"anim":{"enable":true,"speed":2.4362316369040355,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":160.3412060865523,"color":"#ffffff","opacity":0.456972437346674,"width":1.763753266952075},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":false});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);;
+
+/* Back-Ground particle.js animation */
+particlesJS("particles-js", {"particles":{"number":{"value":144,"density":{"enable":true,"value_area":2244.776885211732}},"color":{"value":"#f70202"},"shape":{"type":"circle","stroke":{"width":2,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":true,"anim":{"enable":true,"speed":2.4362316369040355,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":160.3412060865523,"color":"#ffffff","opacity":0.456972437346674,"width":1.763753266952075},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":false});
 
