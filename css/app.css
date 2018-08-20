@@ -9,16 +9,15 @@ html {
 }
 
 html,
-body {
+body{
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+h1 {
+    font-size: 40px;
 }
 .intro {
     background-image: -webkit-linear-gradient(bottom right, #203048, #006085, #009599, #00c574, #a8eb12);
@@ -28,9 +27,11 @@ body {
     text-align: center;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
-    margin-top: 275px;
-    left: 30%;
-    width: 40vw;
+    font-size: 25px;
+    margin-top: 200px;
+    left: 24%;
+    width: 50vw;
+    height: 400px;
     position: absolute;
     z-index: 100;
     border-radius: 8px;
@@ -46,6 +47,7 @@ body {
     text-align: center;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
     margin-top: 275px;
     left: 30%;
     width: 40vw;
@@ -94,8 +96,8 @@ h1 {
 .timer {
     font-size: 25px;
     font-family: 'Montserrat', sans-serif;
-    color: #007be8;
-    border: 1px solid #007be8;
+    color: #1b4282;
+    border: 1px solid #1b4282;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -135,16 +137,14 @@ h1 {
     cursor: default;
 }
 .deck .card.correct {
-    background: #02b3e4;
+    background: #20d6b1;
     font-size: 33px;
     cursor: default;
-    border:8px solid #20d6b1;
 } 
 .deck .card.wrong {
-    background: #02b3e4;
+    background: #db0020;
     font-size: 33px;
-    cursor: default;
-    border:8px solid #db0020;    
+    cursor: default;   
 }
 
 .deck .card.show {
@@ -177,6 +177,7 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+    font-size: 20px;
 }
 
 .score-panel .restart {
@@ -185,11 +186,40 @@ h1 {
     cursor: pointer;
 }
 .fa.fa-repeat {
-    color: #42dcf4;
+    color: #1b4282;
     padding: 8px;
-    border: 2px solid #42dcf4;
+    border: 2px solid #1b4282;
     border-radius: 5px;
 }
 .rating {
-    color: #42dcf4;
+    color: #1b4282;
 } 
+
+
+#moves {
+    color: #1b4282;
+    font-size: 20px;
+}
+.moves {
+    color: #1b4282;
+    font-size: 20px;
+}
+
+
+body{ 
+    margin:0; font:normal 75% Arial, Helvetica, sans-serif; 
+    } 
+canvas{ display: block; vertical-align: bottom; } 
+/* ---- particles.js container ---- */ 
+#particles-js{ 
+    position:fixed;
+    z-index: -1; 
+    width: 100%; 
+    height: 100%;
+    background-color: #e8b614;
+    background-image: url("");
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: 50% 50%; 
+   }
+        /* ---- stats.js ---- */ 

@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <title>Matching Game</title>
     <script src="https://use.fontawesome.com/80b73d72aa.js"></script>
-    
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-                    <section id='intro'>
+    <div id="particles-js"></div> 
+        <section id='intro'>
         <div class="intro">
             <h1>MEMORY GAME</h1>
             <p>lets have some fun with this game.I'll give you 10 seconds to remember the positions of the icons.</p>
@@ -19,8 +20,6 @@
         </div>
     </section>
     <section id='success'>
-        <div>           
-        </div>
     </section>
 
 
@@ -38,7 +37,7 @@
                 <li><i class="fa fa-star-o"></i></li>
             </ul>
 
-            <span class="moves">0</span> Moves
+            <span class="moves">0</span> <span id="moves">Moves</span>
             <span class='timer'>10</span>
 
             <div class="restart">
@@ -98,7 +97,8 @@
             </li>
         </ul>
     </div>
-
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="js/app.js"></script>
+
 </body>
 </html>

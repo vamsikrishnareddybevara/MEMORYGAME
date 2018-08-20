@@ -44,14 +44,15 @@
         intro = document.querySelector('.intro');
         button = intro.querySelector('button');
         button.addEventListener('click',startgame);
-        function startgame(event){
-            intro.remove();
-            timer();
-            setTimeout(cardsRemove,10000);
-        }        
+       
     }
 
 
+    function startgame(event){
+        intro.remove();
+        timer();
+        setTimeout(cardsRemove,10000);
+    } 
 /* To remove cards after 10 seconds */
 
     function cardsRemove(){
@@ -86,23 +87,23 @@
 
 
     function recreateIntro(){
-            let frag=document.createElement('div');       
+            let introDiv=document.createElement('div');       
             let heading = document.createElement('h1');
             heading.textContent='MEMORY GAME';
-            frag.appendChild(heading);
+            introDiv.appendChild(heading);
             let para1 = document.createElement('p');
             para1.textContent = 'lets have some fun with this game.I will give you 10 seconds to remember the positions of the icons.';
-            frag.appendChild(para1);
+            introDiv.appendChild(para1);
             let para2 = document.createElement('p');
             para2.textContent='You have to try to match them. Good luck mate!';
-            frag.appendChild(para2);
+            introDiv.appendChild(para2);
             let playButton = document.createElement('button');
             playButton.textContent='Play';
             playButton.className='button';
-            frag.appendChild(playButton);
-            frag.className='intro';
+            introDiv.appendChild(playButton);
+            introDiv.className='intro';
             let introSection=document.querySelector("#intro");
-            introSection.appendChild(frag);
+            introSection.appendChild(introDiv);
             document.querySelector('.restart').firstElementChild.className='';
             cards.forEach(card => card.addEventListener('click',showCard));
             const star=document.querySelector('.stars');
@@ -112,6 +113,7 @@
             }
             document.querySelector('.moves').innerHTML=0;
             movesReset=true;
+            removeRating();
             introDisplay();
             retry=true;
             successDiv.remove();
@@ -137,7 +139,6 @@
         firstCard.className='card correct'
         secondCard.className='card correct'
         },500)
-
         setTimeout(function(){
         firstCard.className='card match';
         secondCard.className='card match';
@@ -169,7 +170,7 @@
  
         },1500);
  }
- let lockBoard=false;
+ 
 
  function numberOfMove(){
     if(movesReset===true){
@@ -225,32 +226,39 @@ function success(){
     let para = document.createElement('p');
     successDiv.appendChild(para);
     para.textContent = ' Awesome ! You took '+numberOfMoves+' moves to complete the game with a rating of '+ noOfStars +' stars.';
-    let playButton = document.createElement('button');
-    playButton.textContent='Play';
-    playButton.className='button';
-
 }
+
+
 function stars(){
-    if(numberOfMoves<18){
-        limit = 4;
+    if(numberOfMoves<=22){
+        limit=4;
         ratingCalculate();
     }
-    else if(numberOfMoves<20){
+    else if(numberOfMoves<=26){
         limit=3;
         ratingCalculate();
     }
-    else if(numberOfMoves<24){
+    else if(numberOfMoves<=30){
         limit=2;
         ratingCalculate();
     }
-    else if(numberOfMoves<28){
+    else if(numberOfMoves<=32){
         limit=1;
         ratingCalculate();
     }
-    else if(numberOfMoves>28){
+    else if(numberOfMoves>32){
         limit=0;
         ratingCalculate();
     }
+}
+
+function removeRating(){
+        const star=document.querySelector('.stars');
+        listChild= star.getElementsByTagName('li');
+        for(let i=0;i<=4;i++){
+            noOfStars++;
+            listChild[i].firstElementChild.className='fa fa-star-o';
+        }
 }
 function ratingCalculate(){
         const star=document.querySelector('.stars');
@@ -262,11 +270,42 @@ function ratingCalculate(){
 }
 
 
-
 cards.forEach(card => card.addEventListener('click',showCard));
-let hasFlipped = false;
+let hasFlipped,lockBoard = false;
 let firstCard,secondCard;
 let move=document.querySelector('.moves');
-let numberOfMoves = 0,matchedCards=0,noOfStars=0,limit=0;
-let successDiv='hello';
+let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
+let successDiv,playAgain,again;
+
+
+
+
+
+particlesJS("particles-js", 
+    {"particles":{"number":{"value":80,
+    "density":{"enable":true,"value_area":800}},
+    "color":{"value":"#f5bb00"},
+    "shape":{"type":"circle",
+    "stroke":{"width":1,"color":"#0046f0"},
+    "polygon":{"nb_sides":5},
+    "image":{"src":"img/github.svg","width":100,"height":100}},
+    "opacity":{"value":1,"random":false,
+    "anim":{"enable":true,"speed":5.359709601188878,"opacity_min":0,"sync":false}},
+    "size":{"value":8.017060304327615,"random":true,
+    "anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},
+    "line_linked":{"enable":true,"distance":150,"color":"#ed0000",
+    "opacity":0.4,"width":1},"move":{"enable":true,"speed":6,
+    "direction":"none","random":false,"straight":false,
+    "out_mode":"out","bounce":false,"attract":{
+    "enable":false,"rotateX":600,"rotateY":1200}}},
+    "interactivity":{"detect_on":"canvas","events":{
+    "onhover":{"enable":true,"mode":"repulse"},
+    "onclick":{"enable":true,"mode":"push"},
+    "resize":true},"modes":{"grab":{"distance":400,
+    "line_linked":{"opacity":1}},"bubble":{
+    "distance":400,"size":40,"duration":2,
+    "opacity":8,"speed":3},"repulse":{
+    "distance":200,"duration":0.4},
+    "push":{"particles_nb":4},"remove":{
+    "particles_nb":2}}},"retina_detect":true});
 
