@@ -280,27 +280,5 @@ let move=document.querySelector('.moves');
 let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
 let successDiv,playAgain,again;
 
-       particlesJS("particles-js", {"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#f5bb00"},"shape":{"type":"circle",
-    "stroke":{"width":1,"color":"#0046f0"},"polygon":{"nb_sides":5},
-    "image":{"src":"img/github.svg","width":100,"height":100}},
-    "opacity":{"value":1,"random":false,
-    "anim":{"enable":true,"speed":5.359709601188878,"opacity_min":0,"sync":false}},
-    "size":{"value":8.017060304327615,"random":true,
-    "anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},
-    "line_linked":{"enable":true,"distance":150,"color":"#ed0000",
-    "opacity":0.4,"width":1},"move":{"enable":true,"speed":6,
-    "direction":"none","random":false,"straight":false,
-    "out_mode":"out","bounce":false,"attract":{
-    "enable":false,"rotateX":600,"rotateY":1200}}},
-    "interactivity":{"detect_on":"canvas","events":{
-    "onhover":{"enable":true,"mode":"repulse"},
-    "onclick":{"enable":true,"mode":"push"},
-    "resize":true},"modes":{"grab":{"distance":400,
-    "line_linked":{"opacity":1}},"bubble":{
-    "distance":400,"size":40,"duration":2,
-    "opacity":8,"speed":3},"repulse":{
-    "distance":200,"duration":0.4},
-    "push":{"particles_nb":4},"remove":{
-    "particles_nb":2}}},"retina_detect":true});
-
+particlesJS("particles-js", {"particles":{"number":{"value":144,"density":{"enable":true,"value_area":2244.776885211732}},"color":{"value":"#f70202"},"shape":{"type":"circle","stroke":{"width":2,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":true,"anim":{"enable":true,"speed":2.4362316369040355,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":160.3412060865523,"color":"#ffffff","opacity":0.456972437346674,"width":1.763753266952075},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":false});var count_particles, stats, update; stats = new Stats; stats.setMode(0); stats.domElement.style.position = 'absolute'; stats.domElement.style.left = '0px'; stats.domElement.style.top = '0px'; document.body.appendChild(stats.domElement); count_particles = document.querySelector('.js-count-particles'); update = function() { stats.begin(); stats.end(); if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) { count_particles.innerText = window.pJSDom[0].pJS.particles.array.length; } requestAnimationFrame(update); }; requestAnimationFrame(update);;
 
