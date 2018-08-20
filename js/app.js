@@ -1,3 +1,5 @@
+
+
     const restart = document.querySelector('.restart');
     restart.addEventListener('click',shuffle);
     let retry=false;
@@ -142,8 +144,6 @@
         setTimeout(function(){
         firstCard.className='card match';
         secondCard.className='card match';
-        resetValues();            
-        },1500);
         if(firstCard.className == secondCard.className){
             matches++;
             console.log(matches);
@@ -153,6 +153,9 @@
             noOfStars=0;
             success();
         }
+
+        resetValues();            
+        },1500);
         firstCard.removeEventListener('click',showCard);
         secondCard.removeEventListener('click',showCard);
         
@@ -277,17 +280,8 @@ let move=document.querySelector('.moves');
 let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
 let successDiv,playAgain,again;
 
-
-    particlesJS();
-
-
-    particlesJS("particles-js", 
-    {"particles":{"number":{"value":80,
-    "density":{"enable":true,"value_area":800}},
-    "color":{"value":"#f5bb00"},
-    "shape":{"type":"circle",
-    "stroke":{"width":1,"color":"#0046f0"},
-    "polygon":{"nb_sides":5},
+       particlesJS("particles-js", {"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#f5bb00"},"shape":{"type":"circle",
+    "stroke":{"width":1,"color":"#0046f0"},"polygon":{"nb_sides":5},
     "image":{"src":"img/github.svg","width":100,"height":100}},
     "opacity":{"value":1,"random":false,
     "anim":{"enable":true,"speed":5.359709601188878,"opacity_min":0,"sync":false}},
@@ -308,4 +302,5 @@ let successDiv,playAgain,again;
     "distance":200,"duration":0.4},
     "push":{"particles_nb":4},"remove":{
     "particles_nb":2}}},"retina_detect":true});
+
 
