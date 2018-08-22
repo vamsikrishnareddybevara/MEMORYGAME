@@ -6,17 +6,16 @@
     let intro,button,listChild,star;
     let cards = document.querySelectorAll('.card');
     cards.forEach(card => card.addEventListener('click',showCard));
-    let hasFlipped,lockBoard = false;
+    let hasFlipped,lockBoard = false, lockBoardInitially=true;
     let firstCard,secondCard,firstTime=true;
     let move=document.querySelector('.moves');
     let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
     let successDiv,successIndicator=false,playAgain,again;
-    let sec,min,playTime=0.00,clockStop=false,firstClick=true,timeInterval;
+    let sec,min,playTime=0,clockStop=false,firstClick=true,timeInterval;
     let spanElement;
 
 
 /* To display cards when the file is loaded*/
-
     
     cardsDisplay();
     
@@ -67,6 +66,7 @@
 }
 
 /* To calculate the time taken to complete the game */
+
     function clock(){
         sec+=1;
         playTime = convertSeconds(sec);
@@ -92,6 +92,7 @@
         cards.forEach(function(card) {
         card.className='card';                
         })
+        lockBoardInitially=false;
         repeat();
     }
 
@@ -141,6 +142,7 @@
             }
             document.querySelector('.moves').innerHTML=0;
             document.querySelector('.timer').innerHTML=10;
+            lockBoardInitially=true;
             firstClick=true;
             movesReset=true;        
             introDisplay();
@@ -157,7 +159,7 @@
         setTimeout(function(){
         firstCard.className='card correct'
         secondCard.className='card correct'
-        },500)
+        },300)
         setTimeout(function(){
         firstCard.className='card match';
         secondCard.className='card match';
@@ -165,6 +167,7 @@
             matches++;
         }
         /* To check if all the cards are matched */
+
         if(matches===8){
             matches=0;
             successIndicator=true;
@@ -178,7 +181,7 @@
         }
 
         resetValues();            
-        },1500);
+        },1000);
         firstCard.removeEventListener('click',showCard);
         secondCard.removeEventListener('click',showCard);       
     }
@@ -191,13 +194,13 @@
         setTimeout(function(){
         firstCard.className='card wrong';
         secondCard.className='card wrong';
-        },500)
+        },300)
         setTimeout(function(){
         firstCard.className='card';
         secondCard.className='card';       
         resetValues();
  
-        },1500);
+        },1000);
     }
  /* To calculate no of moves */
 
@@ -213,6 +216,7 @@
 /* To open and show a card when it is clicked */
 
     function showCard(){
+        if(lockBoardInitially===true){return;}
         if(firstClick ===true){
         timeInterval = setInterval(clock,1000);
         firstClick=false;
@@ -228,6 +232,7 @@
         }
         else{
             // second click
+            // To resist matching when same card is double clicked 
             if(this === firstCard){return;}
             hasFlipped=false;
             secondCard=this;
@@ -249,7 +254,7 @@ function resetValues(){
     [firstCard,secondCard]=[null,null];
 }
 
-/* To pop a card saying congrats when all the cards are matched */
+/* To pop a card saying congrats when all the cards are matched and to give rating*/
 
 function success(){
     document.querySelector('.timer').innerHTML='Congratulations !';
@@ -294,7 +299,6 @@ function successRating(){
     return spanElement;
 }
 
-
 /* To give rating based on no of moves */
 
 function stars(){
@@ -324,6 +328,9 @@ function stars(){
         ratingCalculate();
     }
 }
+
+/* To calculate rating */
+
 function ratingCalculate(){
     if(initialRating === true){
         limit=4;       
@@ -343,20 +350,7 @@ function ratingCalculate(){
         }   
 }
 
-/* To reset rating when restart button is clicked */
-
-/*function removeRating(){
-        const star=document.querySelector('.stars');
-        listChild= star.getElementsByTagName('li');
-        for(let i=0;i<=4;i++){
-            noOfStars++;
-            listChild[i].firstElementChild.className='fa fa-star rating';
-        }
-}
-*/
-
-
-
 /* Back-Ground particle.js animation */
+
 particlesJS("particles-js", {"particles":{"number":{"value":144,"density":{"enable":true,"value_area":2244.776885211732}},"color":{"value":"#f70202"},"shape":{"type":"circle","stroke":{"width":2,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":1,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":true,"anim":{"enable":true,"speed":2.4362316369040355,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":160.3412060865523,"color":"#ffffff","opacity":0.456972437346674,"width":1.763753266952075},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":false});
 
