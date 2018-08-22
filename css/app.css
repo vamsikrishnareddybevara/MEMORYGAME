@@ -52,9 +52,9 @@ h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 25px;
     margin-top: 275px;
-    left: 30%;
-    width: 40vw;
-    height: 300px;
+    left: 20%;
+    width: 60vw;
+    height: 350px;
     position: absolute;
     z-index: 100;
     border-radius: 8px;
@@ -80,7 +80,23 @@ h1 {
     background-color: #ffffff;
     color: #007be8;
 }
-
+.play-again {
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #55d8fc;
+    margin: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+    -moz-box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+    box-shadow: -1px -1px 8px -2px rgba(0,0,0,1);
+}
+.play-again:hover {
+    background-color: #ffffff;
+    color: #007be8;
+}
 .container {
     display: flex;
     justify-content: center;
@@ -173,6 +189,18 @@ header h1 {
     margin-bottom: 10px;
 }
 
+.success-stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.success-stars li {
+    list-style: none;
+    display: inline-block;
+    font-size: 30px;
+}
 .score-panel .stars {
     margin: 0;
     padding: 0;
@@ -203,7 +231,9 @@ header h1 {
 .rating {
     color: #e00700;
 } 
-
+.success-rating {
+    color: #e00700;
+} 
 #moves {
     color: #e00700;
     font-size: 30px;

@@ -1,26 +1,30 @@
-
-
     const restart = document.querySelector('.restart');
     restart.addEventListener('click',shuffle);
-    let retry=false;
     let movesReset=false;
-    let matches = 0;
-    let intro , button;
+    let initialRating=true;
+    let matches=0;
+    let intro,button,listChild,star;
     let cards = document.querySelectorAll('.card');
     cards.forEach(card => card.addEventListener('click',showCard));
     let hasFlipped,lockBoard = false;
-    let firstCard,secondCard;
+    let firstCard,secondCard,firstTime=true;
     let move=document.querySelector('.moves');
     let numberOfMoves=0,matchedCards=0,noOfStars=0,limit=0;
-    let successDiv,playAgain,again;
+    let successDiv,successIndicator=false,playAgain,again;
+    let sec,min,playTime=0.00,clockStop=false,firstClick=true,timeInterval;
+    let spanElement;
 
 
 /* To display cards when the file is loaded*/
 
     
     cardsDisplay();
-
+    
     function cardsDisplay(){
+        if(firstTime===true){
+        ratingCalculate();
+        firstTime=false;
+        }
         cards.forEach(function(card) {
         card.className='card open show';
         });
@@ -32,8 +36,7 @@
     function introDisplay(){   
         intro = document.querySelector('.intro');
         button = intro.querySelector('button');
-        button.addEventListener('click',startgame);
-       
+        button.addEventListener('click',startgame);   
     }
 
 /* To remove the intro card when play button is clicked  card and to start the timer */
@@ -42,7 +45,7 @@
         intro.remove();
         timer();
         setTimeout(cardsRemove,10000);
-    } 
+    }
 
 /* To start the timer when the play button is clicked and stop is after 10 seconds*/
 
@@ -57,15 +60,31 @@
     }
     setTimeout(stopInterval,10000);
     function stopInterval(){
-    clearInterval(intervalOne);
+        sec=0,min=0;
+        document.querySelector('.timer').innerHTML= min +' min : ' + sec+' sec';
+        clearInterval(intervalOne);
     }     
-    setTimeout(removeTimer,10000);
-    function removeTimer(){
-    document.querySelector('.timer').innerHTML='Good Luck!';
-   }    
 }
 
-
+/* To calculate the time taken to complete the game */
+    function clock(){
+        sec+=1;
+        playTime = convertSeconds(sec);
+        document.querySelector('.timer').innerHTML=playTime;
+    }
+    function clockEnd(){
+        if(clockStop === true){
+            clearInterval(timeInterval);
+            clockStop=false;
+        } 
+    }
+    function convertSeconds(s){
+        min=min+Math.floor(s/60);
+        sec=s%60;
+        let realtime;       
+        realtime = min +' min : ' + sec+' sec';
+        return realtime;
+    }
 
 /* To remove cards after 10 seconds */
 
@@ -115,16 +134,18 @@
             introSection.appendChild(introDiv);
             document.querySelector('.restart').firstElementChild.className='';
             cards.forEach(card => card.addEventListener('click',showCard));
-            const star=document.querySelector('.stars');
-            let listChild= star.getElementsByTagName('li');
+            star=document.querySelector('.stars');
+            listChild= star.getElementsByTagName('li');
             for(let i=0;i<=4;i++){
-                listChild[i].firstElementChild.className='fa fa-star';
+                listChild[i].firstElementChild.className='fa fa-star rating';
             }
             document.querySelector('.moves').innerHTML=0;
-            movesReset=true;
-            removeRating();
+            document.querySelector('.timer').innerHTML=10;
+            firstClick=true;
+            movesReset=true;        
             introDisplay();
-            retry=true;
+            clockStop=true;
+            clockEnd();
             successDiv.remove();
 }
 
@@ -146,9 +167,16 @@
         /* To check if all the cards are matched */
         if(matches===8){
             matches=0;
-            noOfStars=0;
+            successIndicator=true;
+            clockStop = true;
+            if(clockStop===true){
+                clockEnd();
+            }
+        
             success();
+            noOfStars=0;
         }
+
         resetValues();            
         },1500);
         firstCard.removeEventListener('click',showCard);
@@ -178,24 +206,29 @@
         numberOfMoves=0;
     }
     numberOfMoves++
-    move.innerHTML = numberOfMoves;
+    stars();
+    move.innerHTML = numberOfMoves;  
     movesReset=false;
  }
 /* To open and show a card when it is clicked */
 
     function showCard(){
-    
+        if(firstClick ===true){
+        timeInterval = setInterval(clock,1000);
+        firstClick=false;
+        }   
+
         if(lockBoard){return;}
             this.classList.add('open');
             this.classList.add('show');
-        if(!(hasFlipped)){
-        if(this === firstCard){return;}
+        if(!(hasFlipped)){       
             // first click
             hasFlipped=true;
             firstCard=this;
         }
         else{
             // second click
+            if(this === firstCard){return;}
             hasFlipped=false;
             secondCard=this;
             if(firstCard.dataset.icon===secondCard.dataset.icon) {
@@ -219,7 +252,6 @@ function resetValues(){
 /* To pop a card saying congrats when all the cards are matched */
 
 function success(){
-    stars();
     document.querySelector('.timer').innerHTML='Congratulations !';
     successDiv = document.createElement('div');
     successDiv.className='success';
@@ -229,52 +261,100 @@ function success(){
     successDiv.appendChild(successHeading);
     let para = document.createElement('p');
     successDiv.appendChild(para);
-    para.textContent = 'You took '+numberOfMoves+' moves to complete the game with a rating of '+ noOfStars +' stars.';
+    successRating();
+    let starsSpan = document.createElement('span');
+    starsSpan.textContent=' stars .';
+    if(limit===0){
+        starsSpan.textContent=' star .';
+    }
+    para.innerHTML = 'You won with '+numberOfMoves+' moves and took ' +playTime+ '. And earned ';
+    para.appendChild(spanElement);
+    para.appendChild(starsSpan);
+    let playAgainButton = document.createElement('button');
+    playAgainButton.textContent='Play Again';
+    playAgainButton.className='play-again';
+    successDiv.appendChild(playAgainButton);
+    playAgainButton.addEventListener('click',shuffle);  
 }
+
+/* To display rating in the success card */
+
+function successRating(){
+    spanElement = document.createElement('span')
+    let unorderList = document.createElement('ul');
+    unorderList.className='success-stars';
+    for(let k=0;k<noOfStars;k++){
+        let orderedList = document.createElement('li');
+        let iconTag = document.createElement('i');
+        iconTag.className='fa fa-star success-rating';
+        orderedList.appendChild(iconTag);
+        unorderList.appendChild(orderedList);
+    } 
+    spanElement.appendChild(unorderList);
+    return spanElement;
+}
+
 
 /* To give rating based on no of moves */
 
 function stars(){
     if(numberOfMoves<=10){
         limit=4;
+        noOfStars=0;
         ratingCalculate();
     }
-    else if(numberOfMoves<=15){
+    else if(numberOfMoves===12){
         limit=3;
+        noOfStars=0;
         ratingCalculate();
     }
-    else if(numberOfMoves<=18){
+    else if(numberOfMoves==14){
         limit=2;
+        noOfStars=0;
         ratingCalculate();
     }
-    else if(numberOfMoves<=20){
+    else if(numberOfMoves===16){
         limit=1;
+        noOfStars=0;
         ratingCalculate();
     }
-    else if(numberOfMoves>20){
+    else if(numberOfMoves>16){
         limit=0;
+        noOfStars=0;
         ratingCalculate();
     }
 }
 function ratingCalculate(){
-        const star=document.querySelector('.stars');
+    if(initialRating === true){
+        limit=4;       
+    }
+        initialRating=false;
+        star=document.querySelector('.stars');
         listChild= star.getElementsByTagName('li');
+        noOfStars=0;       
         for(let i=0;i<=limit;i++){
             noOfStars++;
             listChild[i].firstElementChild.className='fa fa-star rating';
         }
+        if(limit<4){
+            for(let j=limit+1;j<=4;j++){
+                listChild[j].firstElementChild.className='fa fa-star-o';
+            }
+        }   
 }
 
 /* To reset rating when restart button is clicked */
 
-function removeRating(){
+/*function removeRating(){
         const star=document.querySelector('.stars');
         listChild= star.getElementsByTagName('li');
         for(let i=0;i<=4;i++){
             noOfStars++;
-            listChild[i].firstElementChild.className='fa fa-star-o';
+            listChild[i].firstElementChild.className='fa fa-star rating';
         }
 }
+*/
+
 
 
 /* Back-Ground particle.js animation */
