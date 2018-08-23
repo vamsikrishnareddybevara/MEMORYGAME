@@ -1,3 +1,6 @@
+/*  To make sure that that the js engine throws erros
+ when a varible is not declared */
+    "use strict";
     const restart = document.querySelector('.restart');
     restart.addEventListener('click',shuffle);
     let movesReset=false;
@@ -250,7 +253,7 @@
 /* To reset value after each move */ 
 
 function resetValues(){
-    [hasflipped,lockBoard]=[false,false];
+    [hasFlipped,lockBoard]=[false,false];
     [firstCard,secondCard]=[null,null];
 }
 
